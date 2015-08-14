@@ -1,23 +1,38 @@
-import styles from './_Body.scss';
 import React from 'react';
 import Menu from '../Menu/Menu';
+// import Button from '../Button/Button';
+
+import mui from 'material-ui';
 
 let { PropTypes } = React;
+
+let AppBar  = mui.AppBar;
+let ThemeManager = new mui.Styles.ThemeManager();
 
 export default class Body extends React.Component {
 
   static defaultProps = {
     items: []
-  };
+  }
 
   static propTypes = {
     items: PropTypes.array.isRequired
-  };
+  }
 
+  static childContextTypes = {
+    muiTheme: React.PropTypes.object
+  }
+
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
+  }
   render() {
     return (
-      <div className={styles.body}>
-        <h1 className={styles.header}>React Seed</h1>
+      <div>
+        <AppBar title='Overview' />
+        <h1>React Seed</h1>
         <p>This is an example seed app, powered by React, ES6 &amp; webpack.</p>
         <p>Here is some example data:</p>
         <Menu items={this.props.items} />
